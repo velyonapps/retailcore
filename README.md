@@ -1,6 +1,6 @@
 # RetailCore POS · Velyon Apps
 
-La caja de tu bodega, gratis para siempre: ventas, inventario, fiados y cierre de caja. Con el plan Pro, boletas y facturas electrónicas SUNAT. Funciona sin internet.
+La caja de tu bodega, gratis para empezar: ventas, inventario, fiados y cierre de caja. Plan gratis sin vencimiento hasta S/ 8,000 de ventas al mes. Con el plan Pro, boletas y facturas electrónicas SUNAT. Funciona sin internet.
 
 - **Página y planes:** https://velyonapps.github.io/retailcore/
 - **Descargar (Windows 10 u 11):** [VelyonRetailCore-win-Setup.exe](https://github.com/velyonapps/retailcore/releases/latest/download/VelyonRetailCore-win-Setup.exe)
