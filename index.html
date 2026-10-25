@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RetailCore POS · Velyon Apps</title>
+  <meta name="description" content="La caja de tu bodega, gratis para siempre. Ventas, inventario, fiados y cierre de caja; boletas y facturas SUNAT con el plan Pro. Funciona sin internet.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue-400: #3FB0FF; --blue-500: #1E9BFF; --blue-600: #0A6AD1; --blue-700: #074F9E;
+      --silver-300: #D5D9DF; --silver-400: #AEB6C2;
+      --ink-900: #0C0F14; --ink-800: #11151C;
+      --surface: #FFFFFF; --surface-soft: #F4F7FB; --text: #0C1430; --text-muted: #5B6577;
+      --border: #E6EAF1; --success: #2BA84A; --warning: #F5A623;
+      --gradiente: linear-gradient(135deg, #1FA2FF 0%, #0A5FD0 100%);
+      --sombra: 0 1px 2px rgba(12,16,20,.06), 0 8px 24px rgba(12,16,20,.06);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --surface: #161B23; --surface-soft: #0E1218; --text: #E8EDF5; --text-muted: #AEB6C2; --border: rgba(255,255,255,.08);
+        --blue-700: #3FB0FF; --sombra: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.3);
+      }
+    }
+    :root[data-theme="dark"] {
+      --surface: #161B23; --surface-soft: #0E1218; --text: #E8EDF5; --text-muted: #AEB6C2; --border: rgba(255,255,255,.08);
+      --blue-700: #3FB0FF; --sombra: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.3);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 16px; line-height: 1.6;
+           color: var(--text); background: var(--surface-soft); }
+    img { max-width: 100%; height: auto; display: block; }
+    .hero .contenedor > *, .descarga > *, .soporte > *, .galeria > *, .rejilla > *, .planes > * { min-width: 0; }
+    a { color: var(--blue-700); }
+    .contenedor { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+    /* Encabezado */
+    header { background: var(--ink-900); position: sticky; top: 0; z-index: 10; border-bottom: 1px solid rgba(255,255,255,.08); }
+    header .contenedor { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+    .marca { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 700; letter-spacing: .12em; font-size: 15px; }
+    .marca small { font-weight: 500; letter-spacing: 0; color: var(--silver-400); font-size: 14px; }
+    nav { display: flex; gap: 20px; align-items: center; }
+    nav a { color: var(--silver-300); text-decoration: none; font-size: 15px; }
+    nav a:hover { color: var(--blue-400); }
+    .boton { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 12px;
+             font-weight: 600; font-size: 16px; text-decoration: none; border: 1px solid transparent; cursor: pointer; }
+    .boton.primario { background: var(--gradiente); color: #fff; }
+    .boton.primario:hover { filter: brightness(1.08); }
+    .boton.claro { background: transparent; color: #fff; border-color: rgba(255,255,255,.25); }
+    .boton.claro:hover { border-color: var(--blue-400); color: var(--blue-400); }
+    .boton.secundario { background: var(--surface); color: var(--blue-700); border-color: var(--border); }
+    nav .boton { min-height: 40px; padding: 0 16px; font-size: 15px; }
+
+    /* Hero */
+    .hero { background: var(--ink-900); color: #fff; padding: 64px 0 72px; overflow: hidden; }
+    .hero .contenedor { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 48px; align-items: center; }
+    .etiqueta { display: inline-block; padding: 4px 12px; border-radius: 999px; background: rgba(30,155,255,.15); color: var(--blue-400); font-size: 14px; font-weight: 600; }
+    h1 { font-size: 44px; line-height: 1.15; margin: 16px 0; letter-spacing: -.01em; }
+    h1 span { background: var(--gradiente); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero p.lead { color: var(--silver-300); font-size: 18px; margin: 0 0 28px; }
+    .acciones { display: flex; flex-wrap: wrap; gap: 12px; }
+    .nota { margin-top: 14px; color: var(--silver-400); font-size: 14px; }
+    .captura { border-radius: 16px; border: 1px solid rgba(255,255,255,.1); box-shadow: 0 24px 60px rgba(0,0,0,.5); }
+
+    section { padding: 72px 0; }
+    h2 { font-size: 30px; line-height: 1.2; margin: 0 0 8px; }
+    .sub { color: var(--text-muted); margin: 0 0 36px; max-width: 720px; }
+
+    /* Beneficios */
+    .rejilla { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .tarjeta { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; box-shadow: var(--sombra); }
+    .tarjeta h3 { margin: 10px 0 6px; font-size: 18px; }
+    .tarjeta p { margin: 0; color: var(--text-muted); font-size: 15px; }
+    .icono { width: 40px; height: 40px; border-radius: 12px; background: rgba(30,155,255,.12); display: grid; place-items: center; color: var(--blue-500); }
+    .galeria { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 32px; }
+    .galeria figure { margin: 0; }
+    .galeria img { border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--sombra); }
+    .galeria figcaption { color: var(--text-muted); font-size: 14px; margin-top: 8px; }
+
+    /* Planes */
+    .planes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+    .plan { display: flex; flex-direction: column; }
+    .plan.destacado { border: 2px solid var(--blue-500); }
+    .plan .precio { font-size: 34px; font-weight: 700; margin: 6px 0 0; font-variant-numeric: tabular-nums; }
+    .plan .precio small { font-size: 15px; font-weight: 500; color: var(--text-muted); }
+    .plan ul { list-style: none; padding: 0; margin: 18px 0 22px; flex: 1; }
+    .plan li { padding: 7px 0 7px 28px; position: relative; border-top: 1px solid var(--border); font-size: 15px; }
+    .plan li::before { content: "✓"; position: absolute; left: 4px; color: var(--success); font-weight: 700; }
+    .plan li.no::before { content: "—"; color: var(--text-muted); }
+    .pildora { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 13px; font-weight: 600; background: rgba(30,155,255,.12); color: var(--blue-700); }
+    .pildora.ambar { background: rgba(245,166,35,.16); color: #9A5B00; }
+    .aviso { margin-top: 20px; background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--blue-500); border-radius: 12px; padding: 16px 18px; font-size: 15px; color: var(--text-muted); }
+    .aviso strong { color: var(--text); }
+
+    /* Descargar */
+    .descarga { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; }
+    ol.pasos { margin: 0; padding-left: 22px; }
+    ol.pasos li { margin-bottom: 10px; }
+    .dato { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--border); font-size: 15px; }
+    .dato span:first-child { color: var(--text-muted); }
+    code { font-family: Consolas, "Courier New", monospace; font-size: 13px; background: var(--surface-soft); border: 1px solid var(--border); border-radius: 6px; padding: 2px 6px; word-break: break-all; }
+
+    /* Soporte */
+    .soporte { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+
+    footer { background: var(--ink-900); color: var(--silver-400); padding: 28px 0; font-size: 14px; }
+    footer .contenedor { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+    @media (max-width: 900px) {
+      .hero .contenedor, .descarga, .soporte, .galeria { grid-template-columns: minmax(0, 1fr); }
+      .rejilla, .planes { grid-template-columns: minmax(0, 1fr); }
+      h1 { font-size: 34px; }
+      nav a:not(.boton) { display: none; }
+      section { padding: 52px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="contenedor">
+      <a class="marca" href="#">
+        <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><path d="M2,4 h7 l5,13 l5,-13 h7 L16,25 h-4 Z" fill="#1E9BFF"/><path d="M14,17 l5,-13 h7 L16,25 Z" fill="#D5D9DF"/></svg>
+        VELYON <small>RetailCore POS</small>
+      </a>
+      <nav>
+        <a href="#funciones">Funciones</a>
+        <a href="#planes">Planes</a>
+        <a href="#soporte">Soporte</a>
+        <a class="boton primario" href="#descargar">Descargar</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="contenedor">
+      <div>
+        <span class="etiqueta">Hecho en Perú para bodegas y minimarkets</span>
+        <h1>La caja de tu bodega, <span>gratis para siempre</span></h1>
+        <p class="lead">Vende rápido con lector o botones, controla tu inventario y tus fiados, y cuadra la caja cada día. Cuando tu negocio crezca, emite boletas y facturas SUNAT. Funciona sin internet.</p>
+        <div class="acciones">
+          <a class="boton primario descargar-exe" href="https://github.com/velyonapps/retailcore/releases/latest/download/VelyonRetailCore-win-Setup.exe">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+            Descargar gratis
+          </a>
+          <a class="boton claro" href="#planes">Ver planes</a>
+        </div>
+        <p class="nota">Para Windows 10 y 11 · <span class="version-texto">Última versión</span> · Instalación en 2 minutos</p>
+      </div>
+      <img class="captura" src="img/caja.jpg" alt="Pantalla de venta de RetailCore con productos, total y botón Cobrar" width="1400" height="750">
+    </div>
+  </div>
+
+  <section id="funciones">
+    <div class="contenedor">
+      <h2>Todo lo que tu bodega necesita</h2>
+      <p class="sub">Pensado para quien atiende detrás del mostrador: letras grandes, botones grandes y cero complicaciones.</p>
+      <div class="rejilla">
+        <div class="tarjeta"><div class="icono">⚡</div><h3>Venta rápida</h3><p>Lector de código de barras, botones rápidos, venta por kilo, descuentos y ventas en espera.</p></div>
+        <div class="tarjeta"><div class="icono">💳</div><h3>Efectivo, Yape y Plin</h3><p>Cobra en efectivo con vuelto, Yape, Plin, tarjeta o pago mixto. Imprime el ticket y abre el cajón.</p></div>
+        <div class="tarjeta"><div class="icono">📦</div><h3>Inventario y kardex</h3><p>Stock al día con cada venta, alertas de productos por acabarse y carga de productos desde Excel.</p></div>
+        <div class="tarjeta"><div class="icono">📒</div><h3>Fiados ordenados</h3><p>Cuenta de cada cliente, límite de crédito, abonos y recordatorio por WhatsApp.</p></div>
+        <div class="tarjeta"><div class="icono">🔒</div><h3>Caja que cuadra</h3><p>Apertura y cierre de turno, conteo del cajón, movimientos con motivo y auditoría de todo.</p></div>
+        <div class="tarjeta"><div class="icono">📶</div><h3>Sin internet</h3><p>Todo queda en tu PC con respaldo diario. Las boletas se envían a SUNAT cuando vuelve la conexión.</p></div>
+      </div>
+      <div class="galeria">
+        <figure><img src="img/inicio.jpg" alt="Inicio del dueño con ventas del día y avisos" loading="lazy" width="1400" height="750"><figcaption>Inicio: cómo va el día, lo más vendido y lo que requiere tu atención.</figcaption></figure>
+        <figure><img src="img/fiados.jpg" alt="Cuenta de un cliente con fiados y abonos" loading="lazy" width="1400" height="750"><figcaption>Clientes y fiados: cuánto debe cada uno y desde cuándo.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="planes" style="background: var(--surface);">
+    <div class="contenedor">
+      <h2>Planes simples, sin letra chica</h2>
+      <p class="sub">Empiezas gratis y sin tarjeta. Pagas solo cuando tu negocio crece y necesita boletas y facturas.</p>
+      <div class="planes">
+        <div class="tarjeta plan">
+          <span class="pildora">Para empezar</span>
+          <h3>Gratis</h3>
+          <p class="precio">S/ 0 <small>para siempre</small></p>
+          <ul>
+            <li>Caja, inventario, fiados y notas de venta</li>
+            <li>Cierre de caja, respaldos y auditoría</li>
+            <li>Reportes de Inicio</li>
+            <li>Ventas hasta S/ 8,000 al mes</li>
+            <li>Hasta 3 personas con PIN</li>
+            <li class="no">Boletas y facturas electrónicas</li>
+          </ul>
+          <a class="boton secundario descargar-exe" href="https://github.com/velyonapps/retailcore/releases/latest/download/VelyonRetailCore-win-Setup.exe">Descargar gratis</a>
+        </div>
+        <div class="tarjeta plan destacado">
+          <span class="pildora">El más elegido</span>
+          <h3>Pro</h3>
+          <p class="precio">S/ 399 <small>al año</small></p>
+          <ul>
+            <li>Todo lo del plan Gratis</li>
+            <li>Boletas y facturas electrónicas SUNAT</li>
+            <li>Ventas sin límite</li>
+            <li>Personas y cajas sin límite</li>
+            <li>Soporte por WhatsApp</li>
+            <li>Sin tope de comprobantes</li>
+          </ul>
+          <a class="boton primario" href="https://wa.me/51968141933?text=Hola%20Velyon%2C%20quiero%20el%20plan%20Pro%20de%20RetailCore" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+        </div>
+        <div class="tarjeta plan">
+          <span class="pildora ambar">Muy pronto</span>
+          <h3>Nube</h3>
+          <p class="precio">S/ 59 <small>al mes por bodega</small></p>
+          <ul>
+            <li>Todo lo del plan Pro</li>
+            <li>Varias bodegas desde un solo usuario</li>
+            <li>Ventas y stock desde el celular</li>
+            <li>Respaldo en la nube</li>
+          </ul>
+          <a class="boton secundario" href="https://wa.me/51968141933?text=Hola%20Velyon%2C%20av%C3%ADsame%20cuando%20salga%20el%20plan%20Nube" target="_blank" rel="noopener">Avísame cuando salga</a>
+        </div>
+      </div>
+      <div class="aviso">
+        <strong>¿Por qué S/ 8,000?</strong> Es el tope del Nuevo RUS: si tu negocio lo pasa, por ley ya necesita boletas y facturas. Se mide con el mes ya cerrado y tienes 15 días con aviso para pasar al Pro. La caja nunca deja de vender y tus datos no se pierden.<br>
+        <strong>¿Cómo pago el Pro?</strong> Por Plin al <strong>968 141 933</strong>. Envíanos la captura por WhatsApp con el código de tu equipo (lo ves en Gestión → Mi plan) y te respondemos con tu clave. La renovación suma el año a tu fecha de vencimiento: no pierdes días.
+      </div>
+    </div>
+  </section>
+
+  <section id="descargar">
+    <div class="contenedor">
+      <h2>Descarga e instala</h2>
+      <p class="sub">El instalador es oficial de Velyon Apps y se descarga directo desde GitHub, por conexión segura (HTTPS). Después, la app se actualiza sola.</p>
+      <div class="descarga">
+        <div class="tarjeta">
+          <ol class="pasos">
+            <li>Pulsa <strong>Descargar gratis</strong> y abre <code>VelyonRetailCore-win-Setup.exe</code>.</li>
+            <li>Si Windows muestra «Windows protegió su PC», pulsa <strong>Más información → Ejecutar de todas formas</strong>. Es normal en programas nuevos.</li>
+            <li>El asistente te pide tu negocio (con o sin RUC), tu nombre y tu PIN. En 5 pasos tu caja queda lista.</li>
+            <li>Carga tus productos desde Excel y empieza a vender.</li>
+          </ol>
+          <p style="margin: 18px 0 0;"><a class="boton primario descargar-exe" href="https://github.com/velyonapps/retailcore/releases/latest/download/VelyonRetailCore-win-Setup.exe">Descargar gratis</a></p>
+        </div>
+        <div class="tarjeta">
+          <h3 style="margin-top: 0;">Datos del instalador</h3>
+          <div class="dato"><span>Versión</span><span class="v-version">—</span></div>
+          <div class="dato"><span>Publicada</span><span class="v-fecha">—</span></div>
+          <div class="dato"><span>Tamaño</span><span class="v-tamano">≈ 90 MB</span></div>
+          <div class="dato"><span>Requisitos</span><span>Windows 10 u 11, 64 bits, 4 GB de RAM</span></div>
+          <p style="font-size: 14px; color: var(--text-muted); margin: 14px 0 6px;">Huella SHA-256 (para comprobar que el archivo no fue alterado):</p>
+          <code class="v-sha">Se muestra al cargar la página.</code>
+          <p style="font-size: 14px; color: var(--text-muted); margin: 10px 0 0;">En PowerShell: <code>Get-FileHash .\VelyonRetailCore-win-Setup.exe</code> debe dar la misma huella. Todas las versiones están en <a href="https://github.com/velyonapps/retailcore/releases">el historial de versiones</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="soporte" style="background: var(--surface);">
+    <div class="contenedor">
+      <h2>Estamos para ayudarte</h2>
+      <p class="sub">Leemos todo. Tus sugerencias deciden lo que viene en las próximas versiones.</p>
+      <div class="soporte">
+        <div class="tarjeta">
+          <h3 style="margin-top: 0;">Sugerencias y errores</h3>
+          <p>Para todos los planes. Dentro de la app: <strong>Gestión → Mi plan → Escribir a Velyon</strong>, o al correo:</p>
+          <p><a class="boton secundario" href="mailto:velyonapps@gmail.com?subject=RetailCore%3A%20sugerencia%20o%20error">velyonapps@gmail.com</a></p>
+        </div>
+        <div class="tarjeta">
+          <h3 style="margin-top: 0;">Plan Pro y soporte</h3>
+          <p>Activación, renovación y ayuda por WhatsApp para clientes Pro.</p>
+          <p><a class="boton primario" href="https://wa.me/51968141933" target="_blank" rel="noopener">WhatsApp 968 141 933</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="contenedor">
+      <span>© 2026 Velyon Apps · Desarrollamos soluciones, potenciamos ideas.</span>
+      <span>Tus datos se guardan solo en tu PC.</span>
+    </div>
+  </footer>
+
+  <script>
+    // Datos de la última versión publicada (GitHub Releases). Si falla, la página funciona igual con el enlace fijo.
+    fetch("https://api.github.com/repos/velyonapps/retailcore/releases/latest")
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(rel => {
+        const exe = (rel.assets || []).find(a => a.name === "VelyonRetailCore-win-Setup.exe");
+        const version = (rel.tag_name || "").replace(/^v/, "");
+        document.querySelectorAll(".v-version").forEach(e => e.textContent = version || "—");
+        document.querySelectorAll(".version-texto").forEach(e => e.textContent = version ? "Versión " + version : "Última versión");
+        if (rel.published_at)
+          document.querySelectorAll(".v-fecha").forEach(e => e.textContent = new Date(rel.published_at).toLocaleDateString("es-PE", { day: "numeric", month: "long", year: "numeric" }));
+        if (exe) {
+          document.querySelectorAll(".v-tamano").forEach(e => e.textContent = (exe.size / 1048576).toFixed(1) + " MB");
+          if (exe.digest) document.querySelectorAll(".v-sha").forEach(e => e.textContent = exe.digest.replace(/^sha256:/, "").toUpperCase());
+        }
+      })
+      .catch(() => document.querySelectorAll(".v-sha").forEach(e => e.textContent = "Revisa el historial de versiones en GitHub."));
+  </script>
+</body>
+</html>
