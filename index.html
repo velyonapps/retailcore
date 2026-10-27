@@ -128,7 +128,7 @@
     .formulario legend { font-weight: 700; font-size: 17px; margin-bottom: 12px; padding: 0; }
     .formulario em { font-style: normal; font-weight: 400; color: var(--text-muted); font-size: 13px; margin-left: 4px; }
 
-    .formulario .tipos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 28px; }
+    .formulario .tipos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 28px; }
     .tipos legend { grid-column: 1 / -1; }
     .tipo { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 16px; border: 1.5px solid var(--border);
             border-radius: 16px; cursor: pointer; transition: border-color .15s, background .15s, box-shadow .15s; }
@@ -206,6 +206,7 @@
       <nav>
         <a href="#funciones">Funciones</a>
         <a href="#planes">Planes</a>
+        <a href="manual-instalacion.html">Manual</a>
         <a href="#contacto">Contacto</a>
         <a class="boton primario" href="#descargar">Descargar</a>
       </nav>
@@ -330,6 +331,7 @@
             <li>Carga tus productos desde Excel y empieza a vender.</li>
           </ol>
           <p style="margin: 18px 0 0;"><a class="boton primario descargar-exe" href="https://github.com/velyonapps/retailcore/releases/latest/download/VelyonRetailCore-win-Setup.exe">Descargar gratis</a></p>
+          <p style="margin: 14px 0 0; font-size: 15px; color: var(--text-muted);">¿Prefieres verlo paso a paso con capturas? Lee el <a href="manual-instalacion.html">manual de instalación</a>. El <a href="#contacto" data-tipo="manual">manual de uso</a> (vender, cobrar, fiados, cierre y Gestión) te lo enviamos al correo.</p>
         </div>
         <div class="tarjeta">
           <h3 style="margin-top: 0;">Datos del instalador</h3>
@@ -375,6 +377,12 @@
               <span class="tipo-icono">🏪</span>
               <span class="tipo-titulo">Tengo varias bodegas</span>
               <span class="tipo-detalle">Agendamos una reunión y te proponemos la solución</span>
+            </label>
+            <label class="tipo">
+              <input type="radio" name="tipo" value="manual">
+              <span class="tipo-icono">📘</span>
+              <span class="tipo-titulo">Quiero el manual de uso</span>
+              <span class="tipo-detalle">Te lo enviamos al correo, con capturas de cada pantalla</span>
             </label>
             <label class="tipo">
               <input type="radio" name="tipo" value="sugerencia">
@@ -482,13 +490,17 @@
       form.querySelector(".texto-mensaje").innerHTML = tipo === "sugerencia"
         ? "¿Qué pasó o qué te gustaría mejorar?" : "Tu consulta <em>opcional</em>";
       form.querySelector("button[type=submit]").textContent =
-        tipo === "nube" ? "Pedir reunión" : tipo === "pro" ? "Quiero el plan Pro" : "Enviar";
+        tipo === "nube" ? "Pedir reunión" : tipo === "pro" ? "Quiero el plan Pro" : tipo === "manual" ? "Enviarme el manual" : "Enviar";
+      form.querySelector("input[name=email]").required = tipo === "manual";
     }
     form.querySelectorAll("input[name=tipo]").forEach(r => r.addEventListener("change", mostrarCampos));
     document.querySelectorAll("a[data-tipo]").forEach(a => a.addEventListener("click", () => {
       form.querySelector("input[name=tipo][value=" + a.dataset.tipo + "]").checked = true;
       mostrarCampos();
     }));
+    // Desde otra página (por ejemplo el manual de instalación): ?tipo=manual#contacto deja elegida esa opción.
+    const tipoUrl = new URLSearchParams(location.search).get("tipo");
+    if (tipoUrl && form.querySelector("input[name=tipo][value=" + tipoUrl + "]")) form.querySelector("input[name=tipo][value=" + tipoUrl + "]").checked = true;
     mostrarCampos();
 
     form.addEventListener("submit", async ev => {
@@ -499,7 +511,8 @@
       const falta = [];
       if (!v("nombre")) falta.push("tu nombre");
       if (!v("negocio")) falta.push("el nombre del negocio");
-      if (!v("email") && !v("celular")) falta.push("un correo o celular para responderte");
+      if (tipo === "manual" && !v("email")) falta.push("el correo al que te enviamos el manual");
+      else if (!v("email") && !v("celular")) falta.push("un correo o celular para responderte");
       if (v("email") && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v("email"))) falta.push("un correo válido");
       if (tipo === "sugerencia" && !v("mensaje")) falta.push("qué pasó o qué te gustaría mejorar");
       if (!d.get("acepto")) falta.push("aceptar el uso de tus datos");
@@ -509,11 +522,12 @@
       const lugar = ciudad ? " (" + ciudad + ")" : "";
       const asunto = tipo === "pro" ? "Plan Pro: " + v("negocio") + lugar
         : tipo === "nube" ? "Reunión Nube: " + v("bodegas") + " bodegas, " + v("negocio") + lugar
+        : tipo === "manual" ? "Manual de uso: " + v("negocio") + lugar
         : v("clase") + ": " + v("negocio");
       const datos = {
         access_key: CLAVE_FORMULARIO, subject: asunto, from_name: "Página RetailCore",
         botcheck: !!d.get("botcheck"),
-        "Tipo": tipo === "pro" ? "Plan Pro" : tipo === "nube" ? "Reunión Nube" : "Sugerencia o error",
+        "Tipo": tipo === "pro" ? "Plan Pro" : tipo === "nube" ? "Reunión Nube" : tipo === "manual" ? "Manual de uso" : "Sugerencia o error",
         "Nombre": v("nombre"), "Negocio": v("negocio"), "Correo": v("email"), "Celular": v("celular")
       };
       if (v("email")) datos.replyto = v("email");
@@ -536,6 +550,7 @@
         estado.className = "estado ok";
         estado.textContent = tipo === "nube" ? "✓ Recibimos tu pedido de reunión. Te escribimos en menos de 24 horas hábiles para coordinar."
           : tipo === "pro" ? "✓ Recibimos tu solicitud. Te escribimos en menos de 24 horas hábiles."
+          : tipo === "manual" ? "✓ Listo. Te enviamos el manual de uso a tu correo en menos de 24 horas hábiles."
           : "✓ Gracias, recibimos tu mensaje. Lo revisamos y te respondemos.";
       } catch (e) {
         estado.className = "estado error";

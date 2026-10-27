@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manual de instalación · RetailCore POS</title>
+  <meta name="description" content="Cómo instalar RetailCore POS en la PC de tu bodega: requisitos, asistente de 5 pasos, productos desde Excel, plan Pro, facturación electrónica y respaldos.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue-400: #3FB0FF; --blue-500: #1E9BFF; --blue-600: #0A6AD1; --blue-700: #074F9E;
+      --silver-300: #D5D9DF; --silver-400: #AEB6C2; --ink-900: #0C0F14;
+      --surface: #FFFFFF; --surface-soft: #F4F7FB; --text: #0C1430; --text-muted: #5B6577; --border: #E6EAF1;
+      --gradiente: linear-gradient(135deg, #1FA2FF 0%, #0A5FD0 100%);
+      --sombra: 0 1px 2px rgba(12,16,20,.06), 0 8px 24px rgba(12,16,20,.06);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) { --surface: #161B23; --surface-soft: #0E1218; --text: #E8EDF5; --text-muted: #AEB6C2; --border: rgba(255,255,255,.08); --blue-700: #3FB0FF; }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 16px; line-height: 1.6; color: var(--text); background: var(--surface-soft); }
+    a { color: var(--blue-700); }
+    header { background: var(--ink-900); position: sticky; top: 0; z-index: 10; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .contenedor { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+    header .contenedor { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+    .marca { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 700; letter-spacing: .12em; }
+    .marca small { font-weight: 500; letter-spacing: 0; color: var(--silver-400); font-size: 14px; }
+    nav { display: flex; gap: 18px; align-items: center; }
+    nav a { color: var(--silver-300); text-decoration: none; font-size: 15px; }
+    nav a:hover { color: var(--blue-400); }
+    .boton { display: inline-block; padding: 10px 18px; border-radius: 12px; font-weight: 600; text-decoration: none; min-height: 44px; line-height: 24px; }
+    .boton.primario { background: var(--gradiente); color: #fff; }
+    .portada { background: var(--ink-900); color: #fff; padding: 40px 0 36px; }
+    .portada h1 { margin: 0 0 10px; font-size: 34px; line-height: 1.15; }
+    .portada p { margin: 0; color: var(--silver-300); max-width: 720px; }
+    .portada .acciones { margin-top: 18px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .boton.claro { border: 1px solid rgba(255,255,255,.25); color: #fff; }
+    .cuerpo { display: grid; grid-template-columns: 240px 1fr; gap: 32px; padding: 32px 0 60px; align-items: start; }
+    .indice { position: sticky; top: 80px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px; box-shadow: var(--sombra); }
+    .indice p { margin: 0 0 8px; font-size: 13px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; }
+    .indice a { display: block; padding: 6px 0; text-decoration: none; font-size: 15px; border-top: 1px solid var(--border); }
+    .indice a:first-of-type { border-top: 0; }
+    article { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 8px 32px 32px; box-shadow: var(--sombra); min-width: 0; }
+    article h2 { font-size: 24px; margin: 36px 0 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+    article h2:first-child { border-top: 0; margin-top: 16px; }
+    article h3 { font-size: 18px; margin: 24px 0 8px; }
+    article p, article li { font-size: 16px; }
+    article li { margin: 4px 0; }
+    article code { background: var(--surface-soft); border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; font-size: 14px; }
+    figure { margin: 16px 0 22px; }
+    figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--sombra); }
+    figcaption { font-size: 14px; color: var(--text-muted); margin-top: 6px; }
+    .tabla { overflow-x: auto; margin: 12px 0 18px; }
+    table { border-collapse: collapse; width: 100%; font-size: 15px; }
+    th, td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; }
+    th { background: var(--surface-soft); color: var(--text-muted); font-weight: 600; }
+    .cierre { margin-top: 28px; padding: 20px; border-radius: 16px; background: var(--surface-soft); border: 1px solid var(--border); }
+    .cierre h3 { margin: 0 0 6px; }
+    footer { text-align: center; color: var(--text-muted); font-size: 14px; padding: 24px 16px 40px; }
+    @media (max-width: 860px) {
+      .cuerpo { grid-template-columns: 1fr; }
+      .indice { position: static; }
+      article { padding: 4px 18px 24px; }
+      nav a:not(.boton) { display: none; }
+      .portada h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="contenedor">
+      <a class="marca" href="./">
+        <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><path d="M2,4 h7 l5,13 l5,-13 h7 L16,25 h-4 Z" fill="#1E9BFF"/><path d="M14,17 l5,-13 h7 L16,25 Z" fill="#D5D9DF"/></svg>
+        VELYON <small>RetailCore POS</small>
+      </a>
+      <nav>
+        <a href="./#funciones">Funciones</a>
+        <a href="./#planes">Planes</a>
+        <a href="./#contacto">Contacto</a>
+        <a class="boton primario" href="./#descargar">Descargar</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="portada">
+    <div class="contenedor">
+      <h1>Manual de instalación</h1>
+      <p>Todo lo que necesitas para dejar la caja de tu bodega lista: requisitos, el asistente de 5 pasos, los productos desde Excel, el plan Pro, la facturación electrónica y los respaldos. Con la PC y el dueño presentes, toma entre 1 y 2 horas.</p>
+      <div class="acciones">
+        <a class="boton primario" href="https://github.com/velyonapps/retailcore/releases/latest/download/VelyonRetailCore-win-Setup.exe">Descargar gratis</a>
+        <a class="boton claro" href="./?tipo=manual#contacto">Pedir el manual de uso</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="contenedor cuerpo">
+    <aside class="indice">
+      <p>Contenido</p>
+      <a href="#antes-de-empezar">Antes de empezar</a>
+      <a href="#paso-1-instalar-el-programa">Paso 1: instalar el programa</a>
+      <a href="#paso-2-el-asistente-de-5-pasos">Paso 2: el asistente de 5 pasos</a>
+      <a href="#paso-3-primer-ingreso-y-apertura-de-caja">Paso 3: primer ingreso y apertura de caja</a>
+      <a href="#paso-4-cargar-los-productos-desde-excel">Paso 4: cargar los productos desde Excel</a>
+      <a href="#paso-5-activar-el-plan-pro">Paso 5: activar el plan Pro</a>
+      <a href="#paso-6-facturacion-electronica">Paso 6: facturación electrónica</a>
+      <a href="#empezar-sin-ruc-y-formalizarte-despues">Empezar sin RUC y formalizarte después</a>
+      <a href="#respaldos-actualizaciones-y-desinstalar">Respaldos, actualizaciones y desinstalar</a>
+      <a href="#problemas-frecuentes">Problemas frecuentes</a>
+    </aside>
+    <article>
+      <h2 id="antes-de-empezar">Antes de empezar</h2>
+<p>Con esto a la mano, la instalación toma entre 1 y 2 horas, con el dueño presente.</p>
+<div class="tabla"><table><thead><tr><th>Qué</th><th>Para qué</th><th>¿Obligatorio?</th></tr></thead><tbody><tr><td>PC con Windows 10 u 11 de 64 bits, 4 GB de RAM</td><td>Donde corre la caja</td><td>Sí</td></tr><tr><td>Impresora de tickets térmica (ticketera) de 58 u 80 mm, con su driver instalado</td><td>Imprimir tickets</td><td>Recomendado</td></tr><tr><td>Cajón de dinero conectado a la impresora de tickets (cable tipo teléfono)</td><td>Se abre solo al cobrar en efectivo</td><td>No</td></tr><tr><td>Lector de código de barras USB (modo teclado)</td><td>Escanear productos</td><td>Recomendado</td></tr><tr><td>Celular con cámara en el wifi de la tienda</td><td>Escanear productos sin lector (Caja → Celular)</td><td>No</td></tr><tr><td>Balanza con cable USB o serial (puerto COM)</td><td>Pesar lo que se vende a granel desde la caja (Gestión → Impresora y balanza)</td><td>No</td></tr><tr><td>Memoria USB de 16 o 32 GB (cualquier marca), solo para respaldos</td><td>Copia de seguridad fuera de la PC</td><td>Recomendado</td></tr><tr><td>Nombre del negocio y dirección; si ya tienes RUC, también el RUC, la razón social y el régimen</td><td>Asistente de instalación</td><td>Sí. El RUC no: puedes empezar sin él</td></tr><tr><td>Nombres de quienes atienden</td><td>Cada uno tendrá su PIN</td><td>Sí</td></tr><tr><td>Lista de productos en la plantilla Excel</td><td>Cargar el catálogo de una vez</td><td>No (se puede ir agregando)</td></tr><tr><td>Certificado digital (.pfx) y usuario SOL secundario</td><td>Boletas y facturas electrónicas</td><td>Solo para enviar a SUNAT</td></tr><tr><td>Clave del plan Pro (la envía Velyon por WhatsApp)</td><td>Boletas, facturas, más de 3 personas con PIN o vender más de S/ 8,000 al mes</td><td>Solo para emitir boletas o facturas</td></tr></tbody></table></div>
+<ul>
+<li><strong>Internet</strong> solo hace falta para enviar comprobantes a SUNAT. Sin internet se vende igual y se envía después.</li>
+<li><strong>Si el negocio ya emite boletas con otro sistema</strong>, usa series nuevas (por ejemplo B002) para no repetir números.</li>
+<li><strong>El PIN lo elige cada persona</strong> el día de la instalación; no se anota en ningún lado.</li>
+</ul>
+<p><strong>¿Todavía no tienes RUC?</strong> Igual puedes instalar RetailCore y vender desde hoy. Más abajo, en «Empezar sin RUC y formalizarte después», te explicamos cómo y por qué te conviene sacarlo.</p>
+<h2 id="paso-1-instalar-el-programa">Paso 1: instalar el programa</h2>
+<p>El instalador pone RetailCore en la PC en menos de un minuto y no pide clave de administrador.</p>
+<ol>
+<li>Entra a <strong><a href="./">velyonapps.github.io/retailcore</a></strong> y pulsa <strong>Descargar gratis</strong>: baja el archivo <strong>VelyonRetailCore-win-Setup.exe</strong> (unos 90 MB). Si la PC de la bodega no tiene internet, descárgalo en otra y pásalo con una USB.</li>
+<li>Haz doble clic en él. Si Windows muestra «Windows protegió su PC», pulsa <strong>Más información</strong> y luego <strong>Ejecutar de todas formas</strong> (pasa porque el instalador aún no está firmado). Si la PC no tiene internet, el aviso dice «No se puede obtener acceso a SmartScreen»: pulsa <strong>Ejecutar</strong>.</li>
+<li>Espera unos 30 segundos: aparece el acceso directo <strong>RetailCore POS</strong> en el escritorio y en el menú Inicio, y el programa <strong>se abre solo</strong> con el asistente.</li>
+<li>Las siguientes veces se abre con ese acceso directo. Si en una PC nueva aparecen avisos de Windows u OneDrive, ciérralos o elige <strong>No, gracias</strong>: no afectan a RetailCore.</li>
+</ol>
+<p>El programa se instala en <code>%LOCALAPPDATA%\VelyonRetailCore</code> y los datos del negocio quedan aparte, en <code>%LOCALAPPDATA%\RetailCore</code>. Por eso desinstalar o actualizar nunca borra las ventas.</p>
+<p><strong>Actualizaciones automáticas.</strong> Cuando hay internet, RetailCore revisa al abrir si hay una versión nueva, la descarga sin interrumpir la venta y la instala al cerrar el programa. No hay que hacer nada. Para comprobar que el instalador es el oficial, la página muestra su huella SHA-256 (en PowerShell: <code>Get-FileHash .\VelyonRetailCore-win-Setup.exe</code>).</p>
+<h2 id="paso-2-el-asistente-de-5-pasos">Paso 2: el asistente de 5 pasos</h2>
+<p>La primera vez que abres RetailCore aparece el asistente; en unos 10 minutos deja la bodega lista para vender. Las capturas usan datos de ejemplo.</p>
+<p><strong>1. Tu empresa.</strong> Escribe el RUC (la app revisa que sea válido), la razón social tal como sale en la ficha RUC, el nombre comercial y la dirección. Elige el régimen: en el <strong>Nuevo RUS</strong> no se emiten facturas. Si aún no tienes RUC, marca <strong>Todavía no tengo RUC</strong> y escribe solo el nombre y la dirección (ver «Empezar sin RUC» más abajo).</p>
+<figure><img src="img/manual/m-i01-empresa.jpg" alt="Paso 1 del asistente: datos de la empresa y régimen" loading="lazy" width="1400" height="750"><figcaption>Paso 1 del asistente: datos de la empresa y régimen</figcaption></figure>
+<p><strong>2. Local y caja.</strong> Normalmente se deja todo como viene: «Local principal», código de establecimiento <strong>0000</strong> y «Caja 1». Abajo ves las series que se crearán (B001 boletas, F001 facturas, BC01/FC01 notas de crédito, NV01 notas de venta). Si el negocio ya usó alguna de esas series con otro sistema, avísanos antes de seguir.</p>
+<figure><img src="img/manual/m-i02-local-caja.jpg" alt="Paso 2: local, caja y series" loading="lazy" width="1400" height="750"><figcaption>Paso 2: local, caja y series</figcaption></figure>
+<p><strong>3. Quién atiende.</strong> El dueño escribe su nombre y elige su PIN de 4 números (dos veces). Con <strong>+ Agregar cajero</strong> se suma a cada persona que atiende, cada una con un PIN distinto. Al pulsar <strong>Crear mi negocio</strong> se guarda todo.</p>
+<figure><img src="img/manual/m-i03-quien-atiende.jpg" alt="Paso 3: dueño y cajeros con su PIN" loading="lazy" width="1400" height="750"><figcaption>Paso 3: dueño y cajeros con su PIN</figcaption></figure>
+<p><strong>4. Facturación electrónica.</strong> Si ya tienes el certificado digital (.pfx) y el usuario SOL secundario, cárgalos aquí (ver Paso 6 de este manual). Si no, pulsa <strong>Omitir y configurar después</strong>: la caja funciona igual. Sin RUC, el asistente se salta este paso.</p>
+<figure><img src="img/manual/m-i04-facturacion.jpg" alt="Paso 4: facturación electrónica, se puede omitir" loading="lazy" width="1400" height="750"><figcaption>Paso 4: facturación electrónica, se puede omitir</figcaption></figure>
+<p><strong>5. Impresora.</strong> Elige tu impresora de tickets de la lista, el ancho del papel (58 u 80 mm) y pulsa <strong>Imprimir ticket de prueba</strong>. Si aún no está conectada, omite: los tickets se guardan como archivo hasta que la configures.</p>
+<figure><img src="img/manual/m-i05-impresora.jpg" alt="Paso 5: impresora de tickets y ancho del papel" loading="lazy" width="1400" height="750"><figcaption>Paso 5: impresora de tickets y ancho del papel</figcaption></figure>
+<p>Al terminar aparece <strong>¡Tu bodega está lista!</strong> con el resumen de los planes: empiezas con el <strong>Gratis</strong>, sin fecha de vencimiento, y ahí ves qué incluye el <strong>Pro</strong> y qué traerá la <strong>Nube</strong>. Pulsa <strong>Empezar a vender</strong>.</p>
+<figure><img src="img/manual/m-i06-listo.jpg" alt="Asistente terminado, con los planes Gratis, Pro y Nube" loading="lazy" width="1400" height="750"><figcaption>Asistente terminado, con los planes Gratis, Pro y Nube</figcaption></figure>
+<h2 id="paso-3-primer-ingreso-y-apertura-de-caja">Paso 3: primer ingreso y apertura de caja</h2>
+<p>Cada día se empieza igual: elegir tu nombre, escribir tu PIN y contar el dinero del cajón.</p>
+<ol>
+<li>Toca tu nombre y escribe tu PIN de 4 números en el teclado de la pantalla (o con el teclado de la PC).</li>
+</ol>
+<figure><img src="img/manual/m-i07-acceso.jpg" alt="Acceso con PIN" loading="lazy" width="1400" height="750"><figcaption>Acceso con PIN</figcaption></figure>
+<ol start="2">
+<li>Si la caja está cerrada, la app pide el <strong>fondo inicial</strong>: el sencillo con el que empiezas para dar vuelto. Escríbelo o toca un monto y pulsa <strong>Abrir turno y empezar a vender</strong>.</li>
+</ol>
+<figure><img src="img/manual/m-i08-apertura.jpg" alt="Apertura de turno con fondo inicial" loading="lazy" width="1400" height="750"><figcaption>Apertura de turno con fondo inicial</figcaption></figure>
+<ol start="3">
+<li>Ya estás en la caja. Sin productos cargados se ve vacía; en el Paso 4 los cargamos.</li>
+</ol>
+<figure><img src="img/manual/m-i09-caja-vacia.jpg" alt="Caja recién abierta, todavía sin productos" loading="lazy" width="1400" height="750"><figcaption>Caja recién abierta, todavía sin productos</figcaption></figure>
+<p>Si te equivocas 5 veces de PIN, tu usuario se bloquea 15 minutos; el dueño puede desbloquearte antes en <strong>Gestión → Usuarios y PIN</strong>.</p>
+<h2 id="paso-4-cargar-los-productos-desde-excel">Paso 4: cargar los productos desde Excel</h2>
+<p>Con una plantilla de Excel se cargan todos los productos de una vez; los que falten se agregan después, uno por uno.</p>
+<ol>
+<li>En la caja pulsa <strong>Productos</strong> (arriba a la derecha). Se abre Gestión, en la lista de productos.</li>
+<li>Pulsa <strong>Exportar / plantilla</strong> y guarda el archivo. Sin productos, trae filas de ejemplo para guiarte. Para llenarla hace falta Excel; si la PC de la bodega no lo tiene, llénala en otra computadora o en Google Sheets o LibreOffice (gratis) y guárdala como .xlsx.</li>
+</ol>
+<figure><img src="img/manual/m-i10-productos-vacio.jpg" alt="Productos, todavía vacío" loading="lazy" width="1400" height="750"><figcaption>Productos, todavía vacío</figcaption></figure>
+<ol start="3">
+<li>Llena una fila por producto. Lo mínimo es <strong>nombre</strong>, <strong>precio</strong> (con IGV) y <strong>unidad</strong> (<code>und</code> o <code>kg</code>). Conviene completar también:<ul><li><code>codigos_barras</code>: el número bajo las barras (varios separados por coma).</li><li><code>afectacion</code>: <code>gravado</code>, <code>exonerado</code> (pan, huevos, arroz) o <code>inafecto</code>.</li><li><code>stock_inicial</code>: cuánto hay hoy en el estante.</li><li><code>boton_rapido</code>: <code>si</code> para que aparezca como botón en la caja (pan, huevos, gaseosas).</li><li><code>icbper</code>: <code>si</code> solo para la bolsa plástica.</li></ul></li>
+<li>Guarda el Excel, vuelve a <strong>Productos</strong> y pulsa <strong>Importar Excel</strong>. La app dice cuántos creó y, si alguna fila tiene un error, en qué fila está y qué corregir.</li>
+</ol>
+<figure><img src="img/manual/m-i11-productos-importados.jpg" alt="12 productos importados" loading="lazy" width="1400" height="750"><figcaption>12 productos importados</figcaption></figure>
+<ol start="5">
+<li>Pulsa <strong>Ir a caja</strong>: los productos marcados como rápidos ya aparecen como botones, ordenados por categoría.</li>
+</ol>
+<figure><img src="img/manual/m-i15-caja-lista.jpg" alt="Caja con los botones rápidos" loading="lazy" width="1400" height="750"><figcaption>Caja con los botones rápidos</figcaption></figure>
+<p>Si vuelves a importar el mismo Excel con cambios (por ejemplo, precios nuevos), los productos con el mismo código se actualizan en lugar de duplicarse.</p>
+<h2 id="paso-5-activar-el-plan-pro">Paso 5: activar el plan Pro</h2>
+<p>El plan Gratis no vence para bodegas que venden hasta <strong>S/ 8,000 al mes</strong> (el tope del Nuevo RUS) y trabajan con hasta 3 personas con PIN. El <strong>plan Pro</strong> (<strong>S/ 399 al año</strong>) quita todos los límites, libera las boletas y facturas electrónicas y permite preguntarle al asistente de ayuda (F1) con tus palabras; se activa con una clave de Velyon, sin internet.</p>
+<ol>
+<li>En <strong>Gestión → Mi plan</strong> se ve el plan actual (<strong>Gratis</strong>), qué incluye cada plan y el <strong>código de este equipo</strong>.</li>
+<li>Paga <strong>S/ 399 por Plin al 968 141 933</strong> y pulsa <strong>Pedir mi clave por WhatsApp</strong>: se abre WhatsApp con un mensaje que lleva el negocio, el RUC, el código del equipo y el pago. Adjunta la captura del Plin y envíalo.</li>
+</ol>
+<figure><img src="img/manual/m-i20-mi-plan-gratis.jpg" alt="Mi plan en el plan gratis, con los precios y el código del equipo" loading="lazy" width="1400" height="750"><figcaption>Mi plan en el plan gratis, con los precios y el código del equipo</figcaption></figure>
+<ol start="3">
+<li>Velyon responde con una clave que empieza con <code>RC1.</code>. Pégala en <strong>Clave que te envió Velyon</strong> y pulsa <strong>Activar</strong>.</li>
+<li>Aparece <strong>«✓ Plan Pro activado»</strong> con la fecha de vencimiento. Desde ese momento la caja permite boleta y factura.</li>
+</ol>
+<figure><img src="img/manual/m-i21-mi-plan-pro.jpg" alt="Plan Pro activado" loading="lazy" width="1400" height="750"><figcaption>Plan Pro activado</figcaption></figure>
+<p><strong>Renovación.</strong> El plan dura un año. <strong>Un mes antes</strong> de vencer, la caja lo avisa cada vez que se abre (al dueño, con el botón <strong>Renovar en Mi plan</strong>; al cajero, para que le avise al dueño), y también Inicio y Mi plan. Al renovar, Velyon envía una clave nueva que <strong>suma el año al vencimiento anterior</strong>: renovar antes no hace perder días. Si no se renueva, hay 15 días de gracia y luego la caja sigue vendiendo con notas de venta, sin perder ningún dato. Si cambias de PC o reinstalas Windows, el código cambia: pide una clave nueva.</p>
+<p><strong>Si tu negocio pasa los S/ 8,000 al mes.</strong> Se mide con el mes ya cerrado, nunca a mitad de mes. Desde el 80 % del tope, <strong>Inicio</strong> avisa que estás cerca. Si el mes pasado lo superaste, tienes <strong>15 días</strong> con aviso para pasar al Pro; después se limitan los reportes de Inicio (ticket promedio, ventas del mes, ventas por hora y más vendidos) y el registro de productos nuevos. La caja sigue vendiendo, el cierre y el registro para el contador funcionan igual y no se pierde ningún dato. Los 15 días de gracia son una sola vez: si lo pasas dos meses seguidos, se limita desde el día 1. Un mes por debajo del tope lo devuelve todo a la normalidad.</p>
+<div class="tabla"><table><thead><tr><th></th><th>Gratis</th><th>Pro</th><th>Nube (pronto)</th></tr></thead><tbody><tr><td>Caja, inventario, fiados, notas de venta, cierre, respaldos y auditoría</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>Compras, vencimientos, promociones, cobranza de fiados, celular como lector, balanza y ticket por WhatsApp</td><td>✓</td><td>✓</td><td>✓</td></tr><tr><td>Ganancia real, reporte semanal en PDF, lista de compras, límite sugerido, comisión del cajero y rol Solo consulta</td><td>—</td><td>✓</td><td>✓</td></tr><tr><td>Ventas al mes</td><td>Hasta S/ 8,000</td><td>Sin límite</td><td>Sin límite</td></tr><tr><td>Personas con PIN</td><td>Hasta 3</td><td>Sin límite</td><td>Sin límite</td></tr><tr><td>Boletas y facturas electrónicas (SUNAT)</td><td>—</td><td>✓</td><td>✓</td></tr><tr><td>Soporte por WhatsApp</td><td>—</td><td>✓</td><td>✓</td></tr><tr><td>Varias bodegas y panel desde el celular</td><td>—</td><td>—</td><td>✓</td></tr><tr><td>Precio</td><td>S/ 0</td><td>S/ 399 al año</td><td>S/ 59 al mes por bodega</td></tr></tbody></table></div>
+<h2 id="paso-6-facturacion-electronica">Paso 6: facturación electrónica</h2>
+<p>Este paso es para negocios con RUC y plan Pro activo. Las boletas y facturas se firman en la PC y se envían solas a SUNAT; primero se prueba en <strong>beta</strong> (sin validez) y luego se pasa a <strong>producción</strong>.</p>
+<p>Antes, el dueño crea en SUNAT Operaciones en Línea (con su Clave SOL) un <strong>usuario SOL secundario</strong> con permiso para enviar comprobantes, y tiene a la mano el <strong>certificado digital (.pfx)</strong> con su contraseña. La clave SOL principal nunca se escribe en RetailCore.</p>
+<ol>
+<li>En <strong>Gestión → Facturación electrónica</strong>, pulsa <strong>Elegir archivo…</strong>, busca el .pfx, escribe su contraseña y pulsa <strong>Guardar certificado</strong>. Se guarda cifrado en la PC.</li>
+<li>Marca <strong>Enviar los comprobantes a SUNAT automáticamente</strong>, elige <strong>Beta (pruebas)</strong> y pulsa <strong>Guardar envío a SUNAT</strong>. En beta no hace falta usuario SOL.</li>
+<li>Haz una venta de prueba con boleta y revisa <strong>Gestión → Comprobantes SUNAT</strong>: en unos segundos debe decir <strong>Aceptado</strong>.</li>
+<li>Con la prueba bien, vuelve aquí, elige <strong>Producción</strong>, escribe el usuario SOL secundario y su clave, y guarda. Desde ese momento las ventas son reales ante SUNAT.</li>
+</ol>
+<figure><img src="img/manual/m-i12-facturacion.jpg" alt="Facturación electrónica: certificado y envío a SUNAT" loading="lazy" width="1400" height="750"><figcaption>Facturación electrónica: certificado y envío a SUNAT</figcaption></figure>
+<ul>
+<li><strong>¿Aún no tienes certificado?</strong> Se puede vender igual. Las boletas quedan «pendientes de firma» y se firman después con <strong>Firmar pendientes ahora</strong>.</li>
+<li><strong>Sin internet</strong> las ventas siguen; la app reintenta el envío sola. La pastilla verde de la caja dice cuántos faltan enviar.</li>
+<li><strong>Nuevo RUS</strong> que solo usa notas de venta: puede dejar el envío apagado.</li>
+</ul>
+<h2 id="empezar-sin-ruc-y-formalizarte-despues">Empezar sin RUC y formalizarte después</h2>
+<p>Muchas bodegas empiezan sin RUC y se formalizan cuando el negocio ya camina. RetailCore lo permite: vendes, llevas tu inventario y tus fiados desde el primer día, y el RUC lo agregas cuando lo tengas, sin perder nada.</p>
+<p><strong>Cómo empezar.</strong> En el paso 1 del asistente marca <strong>Todavía no tengo RUC</strong> y escribe solo el nombre del negocio y la dirección. El asistente se salta la facturación electrónica.</p>
+<figure><img src="img/manual/m-i16-sin-ruc.jpg" alt="Asistente: empezar sin RUC" loading="lazy" width="1400" height="750"><figcaption>Asistente: empezar sin RUC</figcaption></figure>
+<p><strong>Cómo se ve la caja.</strong> Todas las ventas salen como <strong>nota de venta</strong>: no se elige boleta ni factura, y el ticket no lleva RUC ni IGV y dice «Documento interno. No es comprobante de pago». En Gestión no aparecen Comprobantes SUNAT ni Facturación electrónica, y no se envía nada a SUNAT.</p>
+<figure><img src="img/manual/m-i17-caja-sin-ruc.jpg" alt="Caja sin RUC: solo notas de venta" loading="lazy" width="1400" height="750"><figcaption>Caja sin RUC: solo notas de venta</figcaption></figure>
+<p><strong>Ojo:</strong> la nota de venta no reemplaza a la boleta. SUNAT puede multar o cerrar temporalmente un local que vende sin entregar comprobantes de pago, así que conviene no dejar pasar mucho tiempo.</p>
+<h3 id="por-que-te-conviene-sacar-el-ruc">¿Por qué te conviene sacar el RUC?</h3>
+<ul>
+<li><strong>Es gratis.</strong> Si eres persona natural, lo sacas con tu DNI en la web o la app de SUNAT, o en un centro de servicios.</li>
+<li><strong>En el Nuevo RUS pagas una cuota fija y baja:</strong> S/ 20 al mes si vendes hasta S/ 5,000 mensuales, S/ 50 si vendes hasta S/ 8,000. No llevas contabilidad.</li>
+<li><strong>Das boleta.</strong> No pierdes al cliente que la pide, y con un régimen que permite factura también le vendes a empresas, colegios o municipios.</li>
+<li><strong>Accedes a crédito.</strong> Bancos y cajas municipales piden RUC y ventas que puedas sustentar; los reportes de RetailCore te ayudan a mostrarlas.</li>
+<li><strong>Compras mejor.</strong> Varios mayoristas y distribuidores trabajan solo con clientes con RUC.</li>
+<li><strong>Trabajas tranquilo</strong> si llega una fiscalización de SUNAT.</li>
+</ul>
+<h3 id="registrar-el-ruc-en-retailcore">Registrar el RUC en RetailCore</h3>
+<ol>
+<li>Entra como dueño a <strong>Gestión → Mi negocio</strong>.</li>
+<li>En <strong>Ya tengo RUC</strong> escribe el RUC, la razón social como sale en tu ficha RUC, y elige tu régimen.</li>
+<li>Pulsa <strong>Registrar mi RUC</strong>. La app crea las series de boletas (y de facturas, si tu régimen las permite) y desde la siguiente venta ya puedes elegir boleta.</li>
+<li>Activa el plan Pro (Paso 5) y sigue con el Paso 6 de este manual: certificado digital y envío a SUNAT.</li>
+</ol>
+<figure><img src="img/manual/m-i18-registrar-ruc.jpg" alt="Mi negocio: registrar el RUC" loading="lazy" width="1400" height="750"><figcaption>Mi negocio: registrar el RUC</figcaption></figure>
+<p>Tus ventas anteriores quedan como notas de venta; productos, inventario, clientes y fiados siguen igual. El RUC se registra una sola vez y queda en Auditoría; si te equivocaste al escribirlo, llama a soporte.</p>
+<h2 id="respaldos-actualizaciones-y-desinstalar">Respaldos, actualizaciones y desinstalar</h2>
+<p>La app se respalda sola cada día y guarda los últimos 30; lo único manual es llevar una copia a la USB una vez por semana.</p>
+<ul>
+<li><strong>Respaldo automático:</strong> unos minutos después de abrir el programa (en una instalación nueva, unos minutos después de terminar el asistente), una vez al día.</li>
+<li><strong>Copia a la USB:</strong> conecta la memoria y en <strong>Gestión → Respaldos</strong> pulsa <strong>Copiar a USB</strong>. En la ventana revisa que esté elegida la memoria (aparece como «USB» o con su nombre) y pulsa <strong>Guardar</strong>. Si la app avisa que la copia «está en esta misma PC», no se guardó en la memoria: repite el paso. Guarda la memoria fuera del local.</li>
+<li><strong>Restaurar:</strong> solo el dueño, con <strong>Restaurar</strong> junto al respaldo elegido. Antes de reemplazar, la app guarda lo actual por si acaso, y luego todos vuelven a entrar con su PIN.</li>
+</ul>
+<figure><img src="img/manual/m-i14-respaldos.jpg" alt="Respaldos: diario automático, copia a USB y restaurar" loading="lazy" width="1400" height="750"><figcaption>Respaldos: diario automático, copia a USB y restaurar</figcaption></figure>
+<ul>
+<li><strong>Actualizaciones:</strong> cuando haya una versión nueva, la app la descarga al abrir y la instala al cerrar, sin interrumpir la venta. Si te llevan el instalador nuevo en una USB, ábrelo: dirá «ya está instalado… ¿Desea actualizar?»; pulsa <strong>Actualizar</strong>. La app se cierra sola y vuelve a abrir con las ventas y el turno abierto tal como estaban.</li>
+<li><strong>Desinstalar:</strong> en Configuración de Windows → <strong>Aplicaciones → Aplicaciones instaladas</strong>, busca «RetailCore», pulsa <strong>⋯ → Desinstalar</strong> y confirma. Windows avisa que se borra «su información relacionada», pero los datos del negocio se quedan: si lo vuelves a instalar abre con todo. Si al reinstalar dice «ya está instalado», pulsa <strong>Reparar</strong>.</li>
+</ul>
+<h2 id="problemas-frecuentes">Problemas frecuentes</h2>
+<div class="tabla"><table><thead><tr><th>Pasa esto</th><th>Haz esto</th></tr></thead><tbody><tr><td>Windows dice «Windows protegió su PC» al instalar</td><td><strong>Más información → Ejecutar de todas formas</strong> (el instalador aún no está firmado)</td></tr><tr><td>La primera apertura tarda casi un minuto</td><td>Es normal la primera vez (Windows revisa los archivos); luego abre en segundos</td></tr><tr><td>No imprime el ticket</td><td>Revisa que la impresora de tickets esté encendida y elegida en <strong>Gestión → Impresora y balanza</strong>; pulsa <strong>Imprimir ticket de prueba</strong>. Mientras tanto los tickets se guardan como archivo</td></tr><tr><td>El cajón de dinero no abre</td><td>Debe estar conectado a la impresora de tickets, no a la PC; pruébalo con <strong>Probar cajón</strong></td></tr><tr><td>El lector no escribe en la caja</td><td>Haz clic en el buscador de arriba (o pulsa F2) y vuelve a escanear</td></tr><tr><td>«Ese RUC no es válido» en el asistente</td><td>Revisa los 11 dígitos tal como en la ficha RUC</td></tr><tr><td>Una boleta dice «Por enviar» mucho rato</td><td>Revisa internet; en <strong>Comprobantes SUNAT</strong> pulsa <strong>Enviar ahora</strong></td></tr><tr><td>Un cajero olvidó su PIN</td><td>El dueño le pone uno nuevo en <strong>Gestión → Usuarios y PIN</strong></td></tr><tr><td>Todavía no tengo RUC</td><td>Marca «Todavía no tengo RUC» en el asistente y vende con notas de venta; cuando lo saques, regístralo en Gestión → Mi negocio</td></tr><tr><td>En una PC nueva salen avisos de Windows u OneDrive</td><td>Ciérralos o elige «No, gracias»; no afectan a RetailCore. Si tapan un botón, vuelve a pulsarlo</td></tr><tr><td>La caja no deja elegir boleta ni factura</td><td>El aviso de la caja dice qué falta: registrar el RUC (Mi negocio) o activar el plan Pro (Mi plan)</td></tr><tr><td>La balanza no responde</td><td>En Gestión → Impresora y balanza elige el puerto COM de la balanza, deja 9600 y pulsa Probar balanza con algo en el plato; si no responde, cambia «Cómo pedir el peso» (ENQ, P o W)</td></tr><tr><td>El celular no abre la página del lector</td><td>Celular y PC deben estar en el mismo wifi; escribe la dirección con https:// y acepta el aviso del certificado (Avanzado → Continuar). Si Windows preguntó por el firewall, hay que haber elegido Permitir</td></tr></tbody></table></div>
+<p>Si algo no está en esta tabla, anota qué hiciste y qué mensaje salió (una foto con el celular sirve) y escríbele a soporte de Velyon.</p>
+      <div class="cierre">
+        <h3>¿Quieres el manual de uso completo?</h3>
+        <p style="margin:0;">Explica el día a día en la caja: vender, cobrar, fiados, cierre, compras, promociones y todo lo de Gestión, con capturas. <a href="./?tipo=manual#contacto">Pídelo aquí</a> y te lo enviamos al correo.</p>
+      </div>
+    </article>
+  </div>
+
+  <footer>RetailCore POS · Velyon Apps · <a href="./">velyonapps.github.io/retailcore</a> · <a href="mailto:velyonapps@gmail.com">velyonapps@gmail.com</a></footer>
+</body>
+</html>
