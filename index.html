@@ -72,6 +72,7 @@
 
     /* Beneficios */
     .rejilla { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .rejilla .tarjeta:nth-child(7) { grid-column: 1 / -1; }
     .tarjeta { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; box-shadow: var(--sombra); }
     .tarjeta h3 { margin: 10px 0 6px; font-size: 18px; }
     .tarjeta p { margin: 0; color: var(--text-muted); font-size: 15px; }
@@ -241,6 +242,7 @@
         <div class="tarjeta"><div class="icono">📦</div><h3>Inventario y kardex</h3><p>Stock al día con cada venta, alertas de productos por acabarse y carga de productos desde Excel.</p></div>
         <div class="tarjeta"><div class="icono">📒</div><h3>Fiados ordenados</h3><p>Cuenta de cada cliente, límite de crédito, abonos y recordatorio por WhatsApp.</p></div>
         <div class="tarjeta"><div class="icono">🔒</div><h3>Caja que cuadra</h3><p>Apertura y cierre de turno, conteo del cajón, movimientos con motivo y auditoría de todo.</p></div>
+        <div class="tarjeta"><div class="icono">💬</div><h3>Ayuda al instante</h3><p>Pulsa F1 y pregunta como hablas: «no sale el ticket», «fiar a un cliente». Responde con el manual, sin internet.</p></div>
         <div class="tarjeta"><div class="icono">📶</div><h3>Sin internet</h3><p>Todo queda en tu PC con respaldo diario. Las boletas se envían a SUNAT cuando vuelve la conexión.</p></div>
       </div>
       <div class="galeria">
@@ -263,6 +265,8 @@
             <li>Caja, inventario, fiados y notas de venta</li>
             <li>Cierre de caja, respaldos y auditoría</li>
             <li>Reportes de Inicio</li>
+            <li>Tu logo, teléfono y lema en el ticket</li>
+            <li>Ayuda con los temas del manual (F1)</li>
             <li>Ventas hasta S/ 8,000 al mes</li>
             <li>Hasta 3 personas con PIN</li>
             <li class="no">Boletas y facturas electrónicas</li>
@@ -278,6 +282,7 @@
             <li>Boletas y facturas electrónicas SUNAT</li>
             <li>Ventas sin límite</li>
             <li>Personas y cajas sin límite</li>
+            <li>Asistente de ayuda: pregunta con tus palabras, sin internet</li>
             <li>Soporte directo por WhatsApp</li>
             <li>Sin tope de comprobantes</li>
           </ul>
