@@ -181,11 +181,32 @@
     .formulario .oculto { display: none; }
     .formulario button[disabled] { opacity: .6; cursor: wait; }
 
+    /* Franja que dice de qué producto es esta página y dónde está el otro */
+    .otro-producto { background: #1E2430; color: var(--silver-300); font-size: 14px; }
+    .otro-producto .contenedor { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; min-height: 36px; align-items: center; text-align: center; }
+    .otro-producto strong { color: #fff; font-weight: 600; }
+    .otro-producto a { color: #FFB38A; font-weight: 600; text-decoration: none; white-space: nowrap; }
+    .otro-producto a:hover { text-decoration: underline; }
+    .punto { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+    .punto.azul { background: var(--blue-500); }
+    .punto.terracota { background: #F0763C; }
+
+    /* Banda final: el otro producto de Velyon, bien separado */
+    .familia { background: var(--surface); border-top: 1px solid var(--border); padding: 56px 0; }
+    .familia .dos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .producto { border-radius: 16px; padding: 22px 24px; border: 1px solid var(--border); display: flex; gap: 16px; align-items: flex-start; text-decoration: none; color: var(--text); background: var(--surface-soft); }
+    .producto.actual { border-color: var(--blue-500); box-shadow: 0 0 0 3px rgba(30,155,255,.12); }
+    .producto.otro:hover { border-color: #F0763C; }
+    .producto svg { flex: none; }
+    .producto strong { display: block; font-size: 18px; margin-bottom: 2px; }
+    .producto span { font-size: 15px; color: var(--text-muted); }
+    .producto .ir { display: inline-block; margin-top: 8px; font-weight: 600; color: #A8431A; }
+
     footer { background: var(--ink-900); color: var(--silver-400); padding: 28px 0; font-size: 14px; }
     footer .contenedor { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 
     @media (max-width: 900px) {
-      .hero .contenedor, .descarga, .soporte, .galeria { grid-template-columns: minmax(0, 1fr); }
+      .hero .contenedor, .descarga, .soporte, .galeria, .familia .dos { grid-template-columns: minmax(0, 1fr); }
       .rejilla, .planes, .campos, .formulario .tipos, .contacto { grid-template-columns: minmax(0, 1fr); }
       .contacto-info { position: static; }
       .formulario, .contacto-info { padding: 20px; }
@@ -197,11 +218,17 @@
   </style>
 </head>
 <body>
+  <div class="otro-producto">
+    <div class="contenedor">
+      <span><span class="punto azul"></span><strong>RetailCore POS</strong> es para bodegas, minimarkets y tiendas.</span>
+      <span>¿Tienes un restaurante o pollería? <a href="https://velyonapps.github.io/restocore/"><span class="punto terracota"></span>Ve a RestoCore POS →</a></span>
+    </div>
+  </div>
   <header>
     <div class="contenedor">
       <a class="marca" href="#">
         <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><path d="M2,4 h7 l5,13 l5,-13 h7 L16,25 h-4 Z" fill="#1E9BFF"/><path d="M14,17 l5,-13 h7 L16,25 Z" fill="#D5D9DF"/></svg>
-        VELYON <small>RetailCore POS</small>
+        RETAILCORE <small>POS para bodegas · Velyon Apps</small>
       </a>
       <nav>
         <a href="#funciones">Funciones</a>
@@ -451,6 +478,23 @@
       </div>
     </div>
   </section>
+
+  <div class="familia">
+    <div class="contenedor">
+      <h2 style="font-size: 24px;">Dos productos de Velyon, uno para cada negocio</h2>
+      <p class="sub" style="margin-bottom: 20px;">Son programas distintos, con instalador distinto. Elige el de tu negocio para no ver pantallas que no usas.</p>
+      <div class="dos">
+        <div class="producto actual">
+          <svg width="44" height="44" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="6" fill="#0C0F14"/><path d="M2,4 h7 l5,13 l5,-13 h7 L16,25 h-4 Z" fill="#1E9BFF"/><path d="M14,17 l5,-13 h7 L16,25 Z" fill="#D5D9DF"/></svg>
+          <div><strong>RetailCore POS <span class="pildora" style="vertical-align: 2px;">Estás aquí</span></strong><span>Bodegas, minimarkets y tiendas: caja con lector de código de barras, inventario, fiados y cierre de caja.</span></div>
+        </div>
+        <a class="producto otro" href="https://velyonapps.github.io/restocore/">
+          <svg width="44" height="44" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="6" fill="#0C0F14"/><path d="M2,4 h7 l5,13 l5,-13 h7 L16,25 h-4 Z" fill="#1E9BFF"/><path d="M14,17 l5,-13 h7 L16,25 Z" fill="#F0763C"/></svg>
+          <div><strong>RestoCore POS</strong><span>Restaurantes, pollerías, chifas, cevicherías y cafeterías: mesas, comandas a cocina, precuenta y cobro por mesa.</span><br><span class="ir">Ir a RestoCore POS →</span></div>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <footer>
     <div class="contenedor">
