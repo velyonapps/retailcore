@@ -211,7 +211,11 @@
       .contacto-info { position: static; }
       .formulario, .contacto-info { padding: 20px; }
       h1 { font-size: 34px; }
-      nav a:not(.boton) { display: none; }
+      /* Celular: el menú pasa a una segunda fila que se desliza de lado (antes se ocultaba). */
+      header .contenedor { flex-wrap: wrap; row-gap: 8px; height: auto; padding: 10px 0; }
+      nav { order: 3; width: 100%; overflow-x: auto; gap: 18px; padding-bottom: 6px; -webkit-overflow-scrolling: touch; }
+      nav a { white-space: nowrap; font-size: 15px; }
+      nav a.boton { padding: 8px 14px; }
       .marca small { display: none; }
       section { padding: 52px 0; }
     }
@@ -254,7 +258,7 @@
           <a class="boton claro" href="#planes">Ver planes</a>
         </div>
         <p class="nota">Plan gratis sin fecha de vencimiento: notas de venta, hasta S/ 8,000 de ventas al mes y 3 personas. Boletas y facturas con el plan Pro. <a href="#planes" style="color: var(--blue-400);">Ver condiciones</a></p>
-        <p class="nota" style="margin-top: 4px;">Para Windows 10 y 11 · <span class="version-texto">Última versión</span> · Instalación en 2 minutos</p>
+        <p class="nota" style="margin-top: 4px;">Para Windows 10 y 11 · <span class="version-texto">Última versión</span> · Se instala solo, con un asistente paso a paso</p>
       </div>
       <img class="captura" src="img/caja.jpg" alt="Pantalla de venta de RetailCore con productos, total y botón Cobrar" width="1400" height="750">
     </div>
@@ -270,10 +274,11 @@
         <div class="tarjeta"><div class="icono">📦</div><h3>Inventario y kardex</h3><p>Stock al día con cada venta, alertas de productos por acabarse y carga de productos desde Excel.</p></div>
         <div class="tarjeta"><div class="icono">📒</div><h3>Fiados ordenados</h3><p>Cuenta de cada cliente, límite de crédito, abonos y recordatorio por WhatsApp.</p></div>
         <div class="tarjeta"><div class="icono">🔒</div><h3>Caja que cuadra</h3><p>Apertura y cierre de turno, conteo del cajón, movimientos con motivo y auditoría de todo.</p></div>
-        <div class="tarjeta"><div class="icono">💬</div><h3>Ayuda al instante</h3><p>Pulsa F1 y pregunta como hablas: «no sale el ticket», «fiar a un cliente». Responde con el manual, sin internet.</p></div>
+        <div class="tarjeta"><div class="icono">💬</div><h3>Ayuda al instante</h3><p>Pulsa F1 y busca por tema en el manual, sin internet. Con el Pro, además, pregúntale como hablas: «no sale el ticket», «fiar a un cliente».</p></div>
         <div class="tarjeta"><div class="icono">🧾</div><h3>Compras y ganancia real</h3><p>Registra lo que llega del proveedor con lo que pagaste y la app avisa qué vence. Con el Pro, ve tu ganancia real y la lista para el mayorista.</p></div>
         <div class="tarjeta"><div class="icono">📱</div><h3>Tu celular es el lector</h3><p>Escanea con la cámara del celular por el wifi de la tienda, conecta una balanza y manda el ticket por WhatsApp.</p></div>
         <div class="tarjeta"><div class="icono">🏷️</div><h3>Promociones solas</h3><p>«2 por S/ 12», precio por docena o combos: la caja los aplica sin que el cajero haga nada.</p></div>
+        <div class="tarjeta"><div class="icono">🖥️</div><h3>Varias cajas</h3><p>Con el Pro, otra PC del local se conecta a la caja principal con un código de enlace: mismos productos, stock y fiados, cada caja con su turno y su serie.</p></div>
         <div class="tarjeta"><div class="icono">📶</div><h3>Sin internet</h3><p>Todo queda en tu PC con respaldo diario. Las boletas se envían a SUNAT cuando vuelve la conexión.</p></div>
       </div>
       <div class="galeria">
@@ -299,7 +304,7 @@
             <li>Cierre de caja, respaldos y auditoría</li>
             <li>Reportes de Inicio</li>
             <li>Tu logo, teléfono y lema en el ticket</li>
-            <li>Ayuda con los temas del manual (F1)</li>
+            <li>Ayuda dentro del programa: tecla F1 y buscas por tema</li>
             <li>Ventas hasta S/ 8,000 al mes</li>
             <li>Hasta 3 personas con PIN</li>
             <li class="no">Boletas y facturas electrónicas</li>
@@ -314,7 +319,8 @@
             <li>Todo lo del plan Gratis</li>
             <li>Boletas y facturas electrónicas SUNAT</li>
             <li>Ventas sin límite</li>
-            <li>Personas y cajas sin límite</li>
+            <li>Personas sin límite</li>
+            <li>Varias cajas en el mismo local, conectadas por la red (cable o Wi-Fi)</li>
             <li>Asistente de ayuda: pregunta con tus palabras, sin internet</li>
             <li>Ganancia real, reporte semanal en PDF y lista de compras</li>
             <li>Límite de crédito sugerido, comisión del cajero y PIN de solo consulta</li>
@@ -463,7 +469,7 @@
             <div class="campos">
               <label class="campo"><span class="rotulo">Es un…</span>
                 <select name="clase"><option>Error</option><option>Sugerencia</option><option>Pregunta</option></select></label>
-              <label class="campo"><span class="rotulo">Versión de RetailCore <em>Gestión → Mi plan</em></span><input name="version" placeholder="0.3.4"></label>
+              <label class="campo"><span class="rotulo">Versión de RetailCore <em>Gestión → Mi plan</em></span><input name="version" placeholder="0.5.0"></label>
             </div>
           </div>
 
